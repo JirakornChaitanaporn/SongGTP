@@ -1,10 +1,5 @@
 from django.shortcuts import render, redirect
 
-from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
-from django.contrib.auth.decorators import login_required
-import json
-
 from .models import User, Prompt, Library, Song
 # Create your views here.
 def get_user(request):
@@ -25,26 +20,26 @@ def create_user(request):
     return redirect("users")
     
 def update_user(request, user_id):
-    body = json.loads(request.body)
+    if request.method == "POST":
+        try:
+            user = User.objects.get(pk=user_id)
+        except User.DoesNotExist:
+            return redirect("users")
 
-    try:
-        user = User.objects.get(pk=user_id)
-    except User.DoesNotExist:
-        return JsonResponse({"error": "Not found"}, status=404)
+        user.username = request.POST.get("username", user.username)
+        user.email = request.POST.get("email", user.email)
 
-    user.username = body.get("name", user.username)
+        user.save()
 
-    user.save()
-
-    return JsonResponse({"message": "updated"})
-
+    return redirect("users")
 
 def delete_user(request, user_id):
-    try:
-        user = User.objects.get(user_id)
-    except User.DoesNotExist:
-        return JsonResponse({"error": "Not found"}, status=404)
+    if request.method == "POST":
+        try:
+            user = User.objects.get(pk=user_id)
+        except User.DoesNotExist:
+            return redirect("users")
 
-    user.delete()
+        user.delete()
 
-    return JsonResponse({"message": "deleted"})
+    return redirect("users")
