@@ -19,7 +19,7 @@ from django.urls import path
 
 from backend.views import get_user, create_user,update_user,delete_user,\
     get_prompt,create_library,create_prompt,create_song,update_library,update_prompt,\
-    update_song,delete_song,delete_library,delete_prompt
+    update_song,delete_song,delete_library,delete_prompt, get_song,get_library
 
 urlpatterns = [
     path('admin/', admin.site.urls),
