@@ -33,7 +33,7 @@ class User(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     
 class Library(models.Model):
-    user = models.ForeignKey(User,on_delete=models.CASCADE, db_column="user_id", related_name="library_user_id")
+    user = models.OneToOneField(User,on_delete=models.CASCADE, related_name="library_user_id")
     created_at = models.DateTimeField(auto_now_add=True)
     
 class Prompt(models.Model):
@@ -47,7 +47,7 @@ class Prompt(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
 class Song(models.Model):
-    prompt = models.ForeignKey(Prompt,on_delete=models.CASCADE, db_column="prompt_id", related_name="song_prompt_id")
+    prompt = models.OneToOneField(Prompt,on_delete=models.CASCADE, related_name="song_prompt_id")
     library = models.ForeignKey(Library,on_delete=models.CASCADE, db_column="library_id", related_name="song_library_id")
     song_name = models.CharField(max_length=50)
     shared_link = models.CharField(max_length=255, blank=True)
