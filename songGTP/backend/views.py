@@ -7,7 +7,7 @@ from .models import User, Prompt, Library, Song
 def get_user(request):
     users = User.objects.all()
 
-    return render(request, "users.html", {"users": users})
+    return render(request, "songGTP/users.html", {"users": users})
 
 def create_user(request):
     if request.method == "POST":
@@ -50,7 +50,7 @@ def delete_user(request, user_id):
 def get_prompt(request):
     prompt = Prompt.objects.all()
 
-    return render(request, "prompt.html", {"prompt": prompt})
+    return render(request, "songGTP/prompt.html", {"prompt": prompt})
 
 def create_prompt(request):
     if request.method == "POST":
@@ -106,7 +106,7 @@ def delete_prompt(request, prompt_id):
 def get_song(request):
     song = Song.objects.all()
 
-    return render(request, "song.html", {"song": song})
+    return render(request, "songGTP/song.html", {"song": song})
 
 def create_song(request):
     if request.method == "POST":
@@ -165,7 +165,7 @@ def delete_song(request, song_id):
 def get_library(request):
     library = Library.objects.all()
 
-    return render(request, "library.html", {"library": library})
+    return render(request, "songGTP/library.html", {"library": library})
 
 def create_library(request):
     if request.method == "POST":
