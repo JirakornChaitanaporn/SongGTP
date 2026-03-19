@@ -16,34 +16,39 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.conf import settings
+from django.conf.urls.static import static
 
-from backend.views import get_user, create_user,update_user,delete_user,\
-    get_prompt,create_library,create_prompt,create_song,update_library,update_prompt,\
-    update_song,delete_song,delete_library,delete_prompt, get_song,get_library
+# Import all view functions
+from user.views import get_user, create_user, update_user, delete_user
+from song.views import get_song, create_song, update_song, delete_song
+from prompt.views import get_prompt, create_prompt, update_prompt, delete_prompt
+from library.views import get_library, create_library, update_library, delete_library
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # USER
-    path("users/", get_user, name="users"),
-    path("users/create/", create_user, name="create_user"),
-    path("users/update/<int:user_id>/", update_user, name="update_user"),
-    path("users/delete/<int:user_id>/", delete_user, name="delete_user"),
-
-    # PROMPT
-    path("prompt/", get_prompt, name="prompt"),
-    path("prompt/create/", create_prompt, name="create_prompt"),
-    path("prompt/update/<int:prompt_id>/", update_prompt, name="update_prompt"),
-    path("prompt/delete/<int:prompt_id>/", delete_prompt, name="delete_prompt"),
-
-    # SONG
-    path("song/", get_song, name="song"),
-    path("song/create/", create_song, name="create_song"),
-    path("song/update/<int:song_id>/", update_song, name="update_song"),
-    path("song/delete/<int:song_id>/", delete_song, name="delete_song"),
-
-    # LIBRARY
-    path("library/", get_library, name="library"),
-    path("library/create/", create_library, name="create_library"),
-    path("library/update/<int:library_id>/", update_library, name="update_library"),
-    path("library/delete/<int:library_id>/", delete_library, name="delete_library"),
+    
+    # USER ENDPOINTS
+    path('api/users/', get_user, name='get_user'),
+    path('api/users/create/', create_user, name='create_user'),
+    path('api/users/update/<int:pk>/', update_user, name='update_user'),
+    path('api/users/delete/<int:pk>/', delete_user, name='delete_user'),
+    
+    # SONG ENDPOINTS
+    path('api/songs/', get_song, name='get_song'),
+    path('api/songs/create/', create_song, name='create_song'),
+    path('api/songs/update/<int:pk>/', update_song, name='update_song'),
+    path('api/songs/delete/<int:pk>/', delete_song, name='delete_song'),
+    
+    # PROMPT ENDPOINTS
+    path('api/prompts/', get_prompt, name='get_prompt'),
+    path('api/prompts/create/', create_prompt, name='create_prompt'),
+    path('api/prompts/update/<int:pk>/', update_prompt, name='update_prompt'),
+    path('api/prompts/delete/<int:pk>/', delete_prompt, name='delete_prompt'),
+    
+    # LIBRARY ENDPOINTS
+    path('api/libraries/', get_library, name='get_library'),
+    path('api/libraries/create/', create_library, name='create_library'),
+    path('api/libraries/update/<int:pk>/', update_library, name='update_library'),
+    path('api/libraries/delete/<int:pk>/', delete_library, name='delete_library'),
 ]
