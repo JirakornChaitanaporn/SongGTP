@@ -1,8 +1,10 @@
+from django.shortcuts import render
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 from .models import User
 from .serializers import UserSerializer
+from .forms import UserForm
 
 
 # Create your views here.
@@ -45,3 +47,12 @@ def delete_user(request, pk):
     
     user.delete()
     return Response(status=status.HTTP_204_NO_CONTENT)
+
+def create_user_template(request):
+    # check if request from submit form
+    if request.method == "POST":
+        form = UserForm(request.POST)
+        if form.is_valid():
+            form.save()
+            
+    return render(request, "user/create-user.html")

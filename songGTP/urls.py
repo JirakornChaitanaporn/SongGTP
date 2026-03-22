@@ -20,7 +20,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 # Import all view functions
-from user.views import get_user, create_user, update_user, delete_user
+from user.views import get_user, create_user, update_user, delete_user, create_user_template
 from song.views import get_song, create_song, update_song, delete_song
 from prompt.views import get_prompt, create_prompt, update_prompt, delete_prompt
 from library.views import get_library, create_library, update_library, delete_library
@@ -51,4 +51,6 @@ urlpatterns = [
     path('api/libraries/create/', create_library, name='create_library'),
     path('api/libraries/update/<int:pk>/', update_library, name='update_library'),
     path('api/libraries/delete/<int:pk>/', delete_library, name='delete_library'),
+    
+    path('create-user/', create_user_template, name="create_user_template")
 ]
